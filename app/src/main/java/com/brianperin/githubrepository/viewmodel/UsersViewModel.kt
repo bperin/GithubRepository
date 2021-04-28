@@ -12,10 +12,6 @@ import timber.log.Timber
 
 class UsersViewModel : ViewModel() {
 
-    init {
-        getUsers()
-    }
-
     fun getUsers() {
 
         viewModelScope.launch(Dispatchers.IO) {
