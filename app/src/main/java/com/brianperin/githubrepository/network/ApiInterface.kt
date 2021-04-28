@@ -1,8 +1,11 @@
 package com.brianperin.githubrepository.network
 
+import com.brianperin.githubrepository.model.response.GithubResponse
 import com.brianperin.githubrepository.model.response.User
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 
@@ -11,6 +14,6 @@ import retrofit2.http.Path
  */
 interface ApiInterface {
 
-    @GET("/users/{userName}")
-    suspend fun getUsers(@Path("userName") userName: String): Response<List<User>>
+//    @POST()
+//    suspend fun getUsers(@Body ("request") userName: String): GithubResponse
 }

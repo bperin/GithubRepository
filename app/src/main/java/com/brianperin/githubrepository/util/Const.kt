@@ -9,6 +9,6 @@ class Constants {
         const val ACCEPT = "accept"
         const val APPLICATION_JSON = "application/json"
         const val ACCEPT_ENCODING = "Accept-Encoding"
-        const val BASE_URL = "https://s3.amazonaws.com/"
+        const val BASE_URL = "https://api.github.com/"
     }
 }

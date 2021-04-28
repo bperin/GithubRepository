@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="thumbnail_width">80dp</dimen>
+    <dimen name="thumbnail_height">80dp</dimen>
+    <dimen name="list_user_height">200dp</dimen>
+    <dimen name="list_user_border_radius">10dp</dimen>
+    <dimen name="list_user_padding">10dp</dimen>
+    <dimen name="list_user_margin_top_bottom">5dp</dimen>
+    <dimen name="list_user_margin_left_right">15dp</dimen>
+    <dimen name="list_user_icon_right_margin">5dp</dimen>
+    <dimen name="list_user_icon_height">15dp</dimen>
+</resources>
