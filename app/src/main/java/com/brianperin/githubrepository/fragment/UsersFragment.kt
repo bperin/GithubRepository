@@ -8,7 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.brianperin.githubrepository.R
-import com.brianperin.githubrepository.adapter.UserModule
+import com.brianperin.githubrepository.adapter.PagingModuleImpl
+import com.brianperin.githubrepository.adapter.UserModuleImpl
 import com.brianperin.githubrepository.network.Result
 import com.brianperin.githubrepository.util.DebouncingQueryTextListener
 import com.brianperin.githubrepository.viewmodel.UsersViewModel
@@ -43,9 +44,10 @@ class UsersFragment : Fragment() {
         recyclerUsers.layoutManager = LinearLayoutManager(context)
 
         oneAdapter = OneAdapter(recyclerUsers) {
-            itemModules += UserModule(requireContext())
+            itemModules += UserModuleImpl(requireContext())
         }
 
+        oneAdapter.attachPagingModule(PagingModuleImpl(usersViewModel))
 
         usersViewModel.usersLiveData.observe(viewLifecycleOwner, { result ->
             progressLoading.visibility = View.INVISIBLE
