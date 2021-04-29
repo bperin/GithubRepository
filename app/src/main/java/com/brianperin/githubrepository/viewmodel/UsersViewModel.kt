@@ -52,15 +52,22 @@ class UsersViewModel : ViewModel() {
                     val users = result.toDataArray()
 
                     //if we dont have enough items dont allow pagination
-                    if (users.isNotEmpty() && users.size == Constants.PAGE_SIZE) {
-                        val lastUser = users.last()
-                        lastCursor = lastUser.cursor
-                        hasNext = true
+                    if (users.isNotEmpty()) {
+
+                        usersLiveData.postValue(Result(Result.Status.SUCCESS, users, null))
+
+                        if (users.size == Constants.PAGE_SIZE) {
+                            val lastUser = users.last()
+                            lastCursor = lastUser.cursor
+                            hasNext = true
+                        } else {
+                            clear()
+                        }
+
                     } else {
                         usersLiveData.postValue(Result(Result.Status.EMPTY, emptyList(), null))
                         clear()
                     }
-                    usersLiveData.postValue(Result(Result.Status.SUCCESS, users, null))
 
                 } else if (result.status == Result.Status.ERROR) {
                     usersLiveData.postValue(Result(Result.Status.ERROR, null, result.message))
@@ -78,6 +85,7 @@ class UsersViewModel : ViewModel() {
     fun clear() {
         query = null
         lastCursor = null
+        hasNext = false
     }
 
     fun next() {
