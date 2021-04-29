@@ -1,8 +1,6 @@
 package com.brianperin.githubrepository.network
 
 import com.apollographql.apollo.ApolloClient
-import com.apollographql.apollo.cache.normalized.lru.EvictionPolicy
-import com.apollographql.apollo.cache.normalized.lru.LruNormalizedCacheFactory
 import com.brianperin.githubrepository.BuildConfig
 import com.brianperin.githubrepository.util.Constants
 import okhttp3.OkHttpClient
@@ -15,7 +13,7 @@ object ApolloClientImpl {
 
     init {
 
-        val cacheFactory = LruNormalizedCacheFactory(EvictionPolicy.builder().maxSizeBytes(10 * 1024 * 1024).build())
+//        val cacheFactory = LruNormalizedCacheFactory(EvictionPolicy.builder().maxSizeBytes(10 * 1024 * 1024).build())
 
         val logging = HttpLoggingInterceptor()
 
@@ -26,10 +24,10 @@ object ApolloClientImpl {
         }
 
         val okHttpClient = OkHttpClient.Builder()
-            .connectTimeout(20, TimeUnit.SECONDS)
-            .readTimeout(20, TimeUnit.SECONDS)
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
             .addInterceptor(logging)
-            .addInterceptor { chain ->
+            .addNetworkInterceptor { chain ->
 
                 val original = chain.request()
                 val builder = original.newBuilder()

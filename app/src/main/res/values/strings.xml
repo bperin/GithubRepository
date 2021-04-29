@@ -7,5 +7,6 @@
     <string name="an_error_has_occurred">Oops! something went wrong</string>
     <string name="try_again">Try Again</string>
     <string name="empty">No results found</string>
+    <string name="search_hint">Search for a user</string>
 
 </resources>

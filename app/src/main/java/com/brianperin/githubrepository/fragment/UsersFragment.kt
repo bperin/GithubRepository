@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.brianperin.githubrepository.R
 import com.brianperin.githubrepository.adapter.UserModule
 import com.brianperin.githubrepository.network.Result
+import com.brianperin.githubrepository.util.DebouncingQueryTextListener
 import com.brianperin.githubrepository.viewmodel.UsersViewModel
 import com.idanatz.oneadapter.OneAdapter
 import kotlinx.android.synthetic.main.fragment_users.*
@@ -37,14 +38,26 @@ class UsersFragment : Fragment() {
             itemModules += UserModule(requireContext())
         }
 
-        usersViewModel.search("jake")
+
         usersViewModel.usersLiveData.observe(viewLifecycleOwner, { result ->
             when (result.status) {
                 Result.Status.SUCCESS -> {
                     oneAdapter.add(result.data!!)
                 }
             }
-
         })
+
+        searchUsers.setOnQueryTextListener(
+            DebouncingQueryTextListener(viewLifecycleOwner.lifecycle) { newText ->
+                newText?.let {
+                    oneAdapter.clear()
+                    if (it.isEmpty()) {
+                        usersViewModel.clear()
+                    } else {
+                        usersViewModel.search(it)
+                    }
+                }
+            }
+        )
     }
 }

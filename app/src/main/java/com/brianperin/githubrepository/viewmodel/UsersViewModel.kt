@@ -56,7 +56,8 @@ class UsersViewModel : ViewModel() {
     }
 
     fun clear() {
-
+        query = null
+        lastCursor = null
     }
 
     fun onNext() {
