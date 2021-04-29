@@ -13,7 +13,12 @@ abstract class BaseDataSource {
         return try {
             val response = call()
             if (response.hasErrors()) {
-                Result.error(response.errors.toString())
+
+                val builder = StringBuilder()
+                response.errors?.forEach {
+                    builder.append(it.message)
+                }
+                Result.error(builder.toString())
             } else {
                 Result.success(response.data!!)
             }
