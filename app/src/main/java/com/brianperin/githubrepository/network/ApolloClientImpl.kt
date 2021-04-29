@@ -49,7 +49,7 @@ object ApolloClientImpl {
 
         apiClient = ApolloClient.builder()
             .serverUrl("https://api.github.com/graphql")
-            .normalizedCache(cacheFactory)
+//            .normalizedCache(cacheFactory)
             .okHttpClient(okHttpClient)
             .build()
     }

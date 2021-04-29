@@ -10,5 +10,6 @@ class Constants {
         const val APPLICATION_JSON = "application/json"
         const val ACCEPT_ENCODING = "Accept-Encoding"
         const val BASE_URL = "https://api.github.com/"
+        const val PAGE_SIZE = 20
     }
 }

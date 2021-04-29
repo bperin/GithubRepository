@@ -12,7 +12,7 @@
     android:padding="@dimen/list_user_padding">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/ivListThumbnail"
+        android:id="@+id/ivAvatar"
         android:layout_width="@dimen/thumbnail_width"
         android:layout_height="@dimen/thumbnail_height" />
 
@@ -21,16 +21,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/list_user_padding"
-        android:layout_toEndOf="@id/ivListThumbnail"
+        android:layout_toEndOf="@id/ivAvatar"
         android:orientation="vertical">
 
 
         <TextView
-            android:id="@+id/tvListName"
+            android:id="@+id/tvLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            tools:text="Brian Perin" />
+            tools:text="bperin" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,70 +41,22 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/list_user_icon_height"
+                android:layout_gravity="center_vertical"
                 android:layout_marginRight="@dimen/list_user_icon_right_margin"
-                app:srcCompat="@drawable/ic_baseline_email_24" />
+                app:srcCompat="@drawable/ic_baseline_collections_bookmark_24" />
 
             <TextView
-                android:id="@+id/tvListEmail"
+                android:id="@+id/tvRepoCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                tools:text="bperin42@gmail.com" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start|center_vertical"
-            android:orientation="horizontal">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/list_user_icon_height"
-                android:layout_marginRight="@dimen/list_user_icon_right_margin"
-                app:srcCompat="@drawable/ic_baseline_local_phone_24" />
-
-            <TextView
-                android:id="@+id/tvListPhone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                tools:text="(415)602-5315" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start|center_vertical"
-            android:orientation="horizontal">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/list_user_icon_height"
-                android:layout_marginRight="@dimen/list_user_icon_right_margin"
-                app:srcCompat="@drawable/ic_baseline_group_24" />
-
-            <TextView
-                android:id="@+id/tvListTeam"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                tools:text="Android Full time" />
+                android:layout_gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                tools:text="3 repositories" />
 
         </LinearLayout>
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <TextView
-        android:id="@+id/tvListBio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/layoutContent"
-        android:ellipsize="end"
-        android:maxLines="3"
-        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris at congue libero, vitae commodo nibh. Integer eget leo pellentesque, imperdiet." />
 
 </RelativeLayout>

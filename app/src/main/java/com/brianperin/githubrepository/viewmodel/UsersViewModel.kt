@@ -1,8 +1,10 @@
 package com.brianperin.githubrepository.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.brianperin.githubrepository.GetUsersQuery
+import com.brianperin.githubrepository.model.response.User
 import com.brianperin.githubrepository.network.Result
 import com.brianperin.githubrepository.repo.UsersRepo
 import com.brianperin.githubrepository.util.toDataArray
@@ -12,32 +14,45 @@ import kotlinx.coroutines.launch
 class UsersViewModel : ViewModel() {
 
     private val usersRepo = UsersRepo()
-
-
-    var userName: String? = null
-    var after: String? = null
+    private var query: String? = null
+    private var lastCursor: String? = null
+    val usersLiveData = MutableLiveData<Result<List<User>>>()
 
     fun search(query: String) {
-        this.userName = query
-        this.after = null
+        this.query = query
+        this.lastCursor = null
 
-//        usersRepo.getUsers(userName)
+        fetch()
+
     }
 
-    fun getUsers() {
+    private fun fetch() {
+
+        if (query == null) {
+            usersLiveData.value = Result(Result.Status.ERROR, null, "invalid query")
+            return
+        }
+        usersLiveData.value = Result(Result.Status.LOADING, null, null)
 
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val result: Result<GetUsersQuery.Data> = usersRepo.getUsers("brian")
+                val result: Result<GetUsersQuery.Data> = usersRepo.getUsers(query!!)
 
                 if (result.status == Result.Status.SUCCESS) {
                     val users = result.toDataArray()
+                    if (users.isNotEmpty()) {
+                        lastCursor = users.lastOrNull()?.cursor
+                    } else {
+                        lastCursor = null
+                    }
+                    usersLiveData.postValue(Result(Result.Status.SUCCESS, users, null))
                 }
 
             } catch (e: Exception) {
-                e.printStackTrace()
+                usersLiveData.postValue(Result(Result.Status.ERROR, null, e.message))
             }
         }
+
     }
 
     fun clear() {

@@ -22,8 +22,6 @@ class MainActivity : AppCompatActivity() {
             showUsersFragment()
         }
 
-        usersViewModel.getUsers()
-
     }
 
     /**
