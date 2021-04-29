@@ -38,19 +38,20 @@ class UsersViewModel : ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) {
             try {
-
                 val result: Result<GetUsersQuery.Data>
-                if (!hasNext && lastCursor == null) {
-                    result = usersRepo.getUsers(query!!)
-                } else {
+
+                //get first
+                result = if (!hasNext && lastCursor == null) {
+                    usersRepo.getUsers(query!!)
+                } else {//next
                     val input: Input<String> = Input.optional(lastCursor)
-                    result = usersRepo.getUsers(query!!, input)
+                    usersRepo.getUsers(query!!, input)
                 }
                 if (result.status == Result.Status.SUCCESS) {
 
                     val users = result.toDataArray()
 
-
+                    //if we dont have enough items dont allow pagination
                     if (users.isNotEmpty() && users.size == Constants.PAGE_SIZE) {
                         val lastUser = users.last()
                         lastCursor = lastUser.cursor

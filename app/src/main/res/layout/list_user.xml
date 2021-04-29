@@ -59,7 +59,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/list_user_padding"
                 android:text="@string/repositories"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 tools:text="repositories" />
 
         </LinearLayout>
