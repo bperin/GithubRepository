@@ -6,10 +6,14 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import kotlinx.coroutines.*
 
-
+/**
+ * Helper class to debounce input to the search query
+ * Use coroutine job so if a job is started and there is new input
+ * the job will cancel and wait delay the next query
+ */
 internal class DebouncingQueryTextListener(lifecycle: Lifecycle, private val onDebouncingQueryTextChange: (String?) -> Unit) : SearchView.OnQueryTextListener, LifecycleObserver {
 
-    private var debouncePeriod: Long = 500
+    private var debouncePeriod: Long = 250
     private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Main)
     private var searchJob: Job? = null
 

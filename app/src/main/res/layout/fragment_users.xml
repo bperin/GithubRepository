@@ -5,10 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressLoading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/list_user_margin_top_bottom"
+        android:indeterminate="true"
+        android:visibility="invisible" />
+
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchUsers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/progressLoading"
+        android:layout_marginLeft="@dimen/list_user_margin_left_right"
+        android:layout_marginTop="@dimen/list_user_margin_top_bottom"
+        android:layout_marginRight="@dimen/list_user_margin_left_right"
+        android:layout_marginBottom="@dimen/list_user_margin_top_bottom"
+        android:background="@drawable/list_user_background"
+        android:imeOptions="actionDone"
+        app:defaultQueryHint="@string/search_hint"
+        app:iconifiedByDefault="false"
         app:queryHint="@string/search_hint" />
 
     <androidx.recyclerview.widget.RecyclerView

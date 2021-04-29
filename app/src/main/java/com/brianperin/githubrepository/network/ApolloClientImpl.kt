@@ -1,19 +1,32 @@
 package com.brianperin.githubrepository.network
 
+import android.content.Context
 import com.apollographql.apollo.ApolloClient
+import com.apollographql.apollo.cache.normalized.lru.EvictionPolicy
+import com.apollographql.apollo.cache.normalized.lru.LruNormalizedCacheFactory
 import com.brianperin.githubrepository.BuildConfig
+import com.brianperin.githubrepository.R
 import com.brianperin.githubrepository.util.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
 
+/**
+ * Our api client implementation
+ * Use apollo with okhttp for adding auth header
+ * and anything else we want for all requests
+ * This must be set up at the application level
+ * before we try to make api calls
+ */
 object ApolloClientImpl {
 
-    val apiClient: ApolloClient
+    lateinit var apiClient: ApolloClient
 
-    init {
+    fun setup(context: Context) {
 
-//        val cacheFactory = LruNormalizedCacheFactory(EvictionPolicy.builder().maxSizeBytes(10 * 1024 * 1024).build())
+        val cacheFactory = LruNormalizedCacheFactory(EvictionPolicy.builder().maxSizeBytes(10 * 1024 * 1024).build())
+        val authHeaderValue = context.getString(R.string.auth_header_value)
+        val graphApiEndpoint = context.getString(R.string.graph_api_endpoint)
 
         val logging = HttpLoggingInterceptor()
 
@@ -26,6 +39,7 @@ object ApolloClientImpl {
         val okHttpClient = OkHttpClient.Builder()
             .connectTimeout(10, TimeUnit.SECONDS)
             .readTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
             .addInterceptor(logging)
             .addNetworkInterceptor { chain ->
 
@@ -34,7 +48,7 @@ object ApolloClientImpl {
 
                 builder.header(Constants.ACCEPT, Constants.APPLICATION_JSON)
                 builder.header(Constants.ACCEPT_ENCODING, Constants.APPLICATION_JSON)
-                builder.header("Authorization", "Bearer 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")
+                builder.header(Constants.AUTHORIZATION, authHeaderValue)
 
                 builder.method(original.method, original.body)
 
@@ -46,11 +60,9 @@ object ApolloClientImpl {
             .build()
 
         apiClient = ApolloClient.builder()
-            .serverUrl("https://api.github.com/graphql")
-//            .normalizedCache(cacheFactory)
+            .serverUrl(graphApiEndpoint)
+            .normalizedCache(cacheFactory)
             .okHttpClient(okHttpClient)
             .build()
     }
-
-
 }

@@ -11,5 +11,7 @@ class Constants {
         const val ACCEPT_ENCODING = "Accept-Encoding"
         const val BASE_URL = "https://api.github.com/"
         const val PAGE_SIZE = 20
+        const val AUTHORIZATION = "Authorization"
+        const val API_KEY = "api_key"
     }
 }

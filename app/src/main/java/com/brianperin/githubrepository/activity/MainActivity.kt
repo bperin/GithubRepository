@@ -11,6 +11,10 @@ import com.brianperin.githubrepository.viewmodel.UsersViewModel
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import timber.log.Timber
 
+/**
+ * Main activity doesn't do much except instantiate the users view model
+ * here we can navigate fragments manually if we dont use jetpack navigation
+ */
 class MainActivity : AppCompatActivity() {
 
     private val usersViewModel: UsersViewModel by viewModels()
