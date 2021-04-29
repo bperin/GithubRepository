@@ -40,22 +40,23 @@ class UsersViewModel : ViewModel() {
             try {
 
                 val result: Result<GetUsersQuery.Data>
-                if (hasNext && lastCursor != null) {
+                if (!hasNext && lastCursor == null) {
                     result = usersRepo.getUsers(query!!)
                 } else {
-                    result = usersRepo.getUsers(query!!,)
+                    val input: Input<String> = Input.optional(lastCursor)
+                    result = usersRepo.getUsers(query!!, input)
                 }
-
-
                 if (result.status == Result.Status.SUCCESS) {
 
                     val users = result.toDataArray()
+
 
                     if (users.isNotEmpty() && users.size == Constants.PAGE_SIZE) {
                         val lastUser = users.last()
                         lastCursor = lastUser.cursor
                         hasNext = true
                     } else {
+                        usersLiveData.postValue(Result(Result.Status.EMPTY, emptyList(), null))
                         clear()
                     }
                     usersLiveData.postValue(Result(Result.Status.SUCCESS, users, null))

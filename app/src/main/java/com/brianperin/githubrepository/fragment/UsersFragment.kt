@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.brianperin.githubrepository.R
+import com.brianperin.githubrepository.adapter.EmptinessModuleImpl
 import com.brianperin.githubrepository.adapter.PagingModuleImpl
 import com.brianperin.githubrepository.adapter.UserModuleImpl
 import com.brianperin.githubrepository.network.Result
@@ -48,6 +49,7 @@ class UsersFragment : Fragment() {
         }
 
         oneAdapter.attachPagingModule(PagingModuleImpl(usersViewModel))
+        oneAdapter.attachEmptinessModule(EmptinessModuleImpl())
 
         usersViewModel.usersLiveData.observe(viewLifecycleOwner, { result ->
             progressLoading.visibility = View.INVISIBLE
@@ -59,7 +61,12 @@ class UsersFragment : Fragment() {
                     progressLoading.visibility = View.VISIBLE
                 }
                 Result.Status.ERROR -> {
-                    progressLoading.visibility = View.VISIBLE
+                    oneAdapter.clear()
+                    oneAdapter.setItems(emptyList())
+                }
+                Result.Status.EMPTY -> {
+                    oneAdapter.clear()
+                    oneAdapter.setItems(emptyList())
                 }
             }
         })
