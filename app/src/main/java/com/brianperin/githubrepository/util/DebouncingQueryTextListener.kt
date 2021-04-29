@@ -13,7 +13,7 @@ import kotlinx.coroutines.*
  */
 internal class DebouncingQueryTextListener(lifecycle: Lifecycle, private val onDebouncingQueryTextChange: (String?) -> Unit) : SearchView.OnQueryTextListener, LifecycleObserver {
 
-    private var debouncePeriod: Long = 250
+    private var debouncePeriod: Long = 500
     private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Main)
     private var searchJob: Job? = null
 
