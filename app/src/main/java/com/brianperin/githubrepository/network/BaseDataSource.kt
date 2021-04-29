@@ -13,7 +13,6 @@ abstract class BaseDataSource {
         return try {
             val response = call()
             if (response.hasErrors()) {
-
                 val builder = StringBuilder()
                 response.errors?.forEach {
                     builder.append(it.message)
@@ -22,6 +21,8 @@ abstract class BaseDataSource {
             } else {
                 Result.success(response.data!!)
             }
+
+
         } catch (e: Exception) {
             error(e.message ?: e.toString())
         }
