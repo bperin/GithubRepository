@@ -14,7 +14,7 @@ import com.idanatz.oneadapter.external.modules.ItemModule
  * hood work of a recycler view adapter in terms of viewholder creation and
  * binding our data model to it
  */
-class UserModule(context: Context) : ItemModule<User>() {
+class UserModuleImpl(context: Context) : ItemModule<User>() {
     init {
         config {
             layoutResource = R.layout.list_user
