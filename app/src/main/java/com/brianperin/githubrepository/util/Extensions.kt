@@ -1,23 +1,26 @@
-package com.brianperin.squaredirectory.util
+package com.brianperin.githubrepository.util
 
-import com.brianperin.githubrepository.model.response.User
-import org.valiktor.functions.isNotNull
+import com.brianperin.githubrepository.GetUsersQuery
+import com.brianperin.githubrepository.model.response.Node
+import com.brianperin.githubrepository.network.Result
+import okhttp3.internal.toImmutableList
+import java.util.Collections.emptyList
 
 
 /**
- * Validate required fields and type
+ * Mutate our apollo object into regular data class array
  */
-//fun User.validate() {
-//    org.valiktor.validate(this) {
-//        validate(User::id).isNotNull()
-//    }
-//}
-//
-///**
-// * Validate entire array
-// */
-//fun User.validate() {
-//    this.employees.forEach { employee ->
-//        employee.validate()
-//    }
-//}
+fun Result<GetUsersQuery.Data>.toDataArray(): List<Node> {
+
+    val list: MutableList<Node> = emptyList()
+    val edges = this.data?.search?.edges
+    edges?.let { edge ->
+        edge.forEach {
+            val cursor = it!!.cursor
+            val graphUser = it.node?.asUser
+            val node = Node(graphUser?.avatarUrl as String, graphUser.login, graphUser.repositories.totalCount, cursor)
+            list.add(node)
+        }
+    }
+    return list.toImmutableList()
+}

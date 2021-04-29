@@ -2,26 +2,49 @@ package com.brianperin.githubrepository.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.apollographql.apollo.coroutines.toDeferred
-import com.apollographql.apollo.exception.ApolloException
 import com.brianperin.githubrepository.GetUsersQuery
-import com.brianperin.githubrepository.network.ApolloImpl
+import com.brianperin.githubrepository.network.Result
+import com.brianperin.githubrepository.repo.UsersRepo
+import com.brianperin.githubrepository.util.toDataArray
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class UsersViewModel : ViewModel() {
+
+    private val usersRepo = UsersRepo()
+
+
+    var userName: String? = null
+    var after: String? = null
+
+    fun search(query: String) {
+        this.userName = query
+        this.after = null
+
+//        usersRepo.getUsers(userName)
+    }
 
     fun getUsers() {
 
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val resp =
-                    ApolloImpl.apolloClient.query(GetUsersQuery("brian", 10)).toDeferred().await()
-                Timber.tag("apollo").d(resp.toString())
-            } catch (e: ApolloException) {
+                val result: Result<GetUsersQuery.Data> = usersRepo.getUsers("brian")
+
+                if (result.status == Result.Status.SUCCESS) {
+                    val users = result.toDataArray()
+                }
+
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
+    }
+
+    fun clear() {
+
+    }
+
+    fun onNext() {
+
     }
 }

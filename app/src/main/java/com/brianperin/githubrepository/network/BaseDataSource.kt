@@ -1,6 +1,6 @@
 package com.brianperin.githubrepository.network
 
-import retrofit2.Response
+import com.apollographql.apollo.api.Response
 import timber.log.Timber
 
 /**
@@ -9,16 +9,16 @@ import timber.log.Timber
  */
 abstract class BaseDataSource {
 
-    protected suspend fun <T> getResult(call: suspend () -> Response<T>): Result<T> {
-        try {
+    protected suspend fun <T> getQueryResult(call: suspend () -> Response<T>): Result<T> {
+        return try {
             val response = call()
-            if (response.isSuccessful) {
-                val body = response.body()
-                if (body != null) return Result.success(body)
+            if (response.hasErrors()) {
+                Result.error(response.errors.toString())
+            } else {
+                Result.success(response.data!!)
             }
-            return error(" ${response.code()} ${response.message()}")
         } catch (e: Exception) {
-            return error(e.message ?: e.toString())
+            error(e.message ?: e.toString())
         }
     }
 
