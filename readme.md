@@ -1,5 +1,9 @@
 # Github user search
 
+![Screenshot_1619803660](https://user-images.githubusercontent.com/412219/116733404-ebbfa900-a9a0-11eb-9549-59eb2dd26983.png)
+![Screenshot_1619803644](https://user-images.githubusercontent.com/412219/116733407-ec583f80-a9a0-11eb-9076-469ad42b0929.png)
+![Screenshot_1619803606](https://user-images.githubusercontent.com/412219/116733408-ecf0d600-a9a0-11eb-82f6-24cdeac56f3c.png)
+
 application that allows you to query githubs public api using graphql instead of regular REST.
 GraphQl is the optimal choice because the data required, getting a list of users and showing the amount of repos they have would take two API calls per user.
 With graphQl we can optimize the search for just the data we need and impelment it with https://www.apollographql.com/docs/android/
