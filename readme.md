@@ -40,3 +40,6 @@ Second is in the Glide image cache which will read bitmaps from memory, a trade 
 
 ## Adapter / list
 The adapter is a 3rd party library https://github.com/ironSource/OneAdapter which eliminates a lot of boiler plate code for a typical https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView.Adapter adapter. We also can implement empty state, 0 results and pagination which is critical for loading more items, I chose using this for sake of time and simplicity focusing more on architecture overall.
+
+## Authentication
+all requests need a personal api key, this isn't complicated to generate but unforunately adding the key directly to code triggers an error ironically on github and makes the key invalid, hence breaking up the key. The alternative would be to go through an oAuth flow which in this scenario doesn't make a lot of sense. Outside users from github would never be able to get a token. 
