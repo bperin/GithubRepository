@@ -48,7 +48,7 @@ object ApolloClientImpl {
 
                 builder.header(Constants.ACCEPT, Constants.APPLICATION_JSON)
                 builder.header(Constants.ACCEPT_ENCODING, Constants.APPLICATION_JSON)
-                builder.header(Constants.AUTHORIZATION, authHeaderValue)
+                builder.header(Constants.AUTHORIZATION, "Bearer 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")
 
                 builder.method(original.method, original.body)
 
