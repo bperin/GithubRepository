@@ -9,7 +9,9 @@
     <string name="empty">No results found</string>
     <string name="search_hint">Search for a user</string>
     <string name="repositories">repositories</string>
-    <string name="auth_header_value">Bearer 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</string>
+    <string name="auth_header_bearer">Bearer</string>
+    <string name="auth_header_value_prefix">ghp</string>
+    <string name="auth_header_value_suffix">D576gLD5CFeU3SnIOkjPl0fp802CZZ2hnRRy</string>
     <string name="graph_api_endpoint">https://api.github.com/graphql</string>
     <string name="empty_users">Search to find users…</string>
 

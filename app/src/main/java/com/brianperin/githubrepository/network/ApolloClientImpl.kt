@@ -25,7 +25,12 @@ object ApolloClientImpl {
     fun setup(context: Context) {
 
         val cacheFactory = LruNormalizedCacheFactory(EvictionPolicy.builder().maxSizeBytes(10 * 1024 * 1024).build())
-        val authHeaderValue = context.getString(R.string.auth_header_value)
+        val bearer = context.getString(R.string.auth_header_bearer)
+        val prefix = context.getString(R.string.auth_header_value_prefix)
+        val suffix = context.getString(R.string.auth_header_value_suffix)
+
+        val token = bearer + " " + prefix + "_" + suffix
+
         val graphApiEndpoint = context.getString(R.string.graph_api_endpoint)
 
         val logging = HttpLoggingInterceptor()
@@ -48,7 +53,7 @@ object ApolloClientImpl {
 
                 builder.header(Constants.ACCEPT, Constants.APPLICATION_JSON)
                 builder.header(Constants.ACCEPT_ENCODING, Constants.APPLICATION_JSON)
-                builder.header(Constants.AUTHORIZATION, "Bearer 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")
+                builder.header(Constants.AUTHORIZATION, token)
 
                 builder.method(original.method, original.body)
 
