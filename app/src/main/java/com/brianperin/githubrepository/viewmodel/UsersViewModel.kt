@@ -1,6 +1,5 @@
 package com.brianperin.githubrepository.viewmodel
 
-import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -37,7 +36,7 @@ class UsersViewModel : ViewModel() {
         }
 
         viewModelScope.launch(Dispatchers.IO) {
-            usersLiveData.value = Result(Result.Status.LOADING, null, null)
+            usersLiveData.postValue(Result(Result.Status.LOADING, null, null))
             try {
                 val result: Result<GetUsersQuery.Data>
 
